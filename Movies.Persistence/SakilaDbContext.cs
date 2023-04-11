@@ -15,6 +15,7 @@ public partial class SakilaContext : DbContext
     }
 
     public virtual DbSet<Actor> Actors { get; set; }
+    public virtual DbSet<FilmActor> FilmActors { get; set; }
 
     public virtual DbSet<Film> Films { get; set; }
 

@@ -36,7 +36,7 @@ namespace Movies.Persistence.Repository
                 .ToListAsync();
         }
 
-        public async Task<T> GetAsync(int id)
+        public async Task<T> GetAsync(ushort id)
         {
             return await dbContext.Set<T>().FindAsync(id);
         }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Movies.Application.Respository
 {
-    public interface IActorRespository: IAsyncRepository<Actor>
+    public interface IActorRespository : IAsyncRepository<Actor>
     {
+        Task<IEnumerable<Actor>> GetActorsByFilmId(int filmId);
     }
 }

@@ -23,16 +23,8 @@ namespace Movies.Application.Features.Film.Query.GetFilmsListQuery
         public string Language { get; set; } = null!;
         public string? OriginalLanguage { get; set; }
     }
-
-    public class InventoryDto
-    {
-    }
-
-    public class FilmCategoryDto
-    {
-
-    }
-
+    public class InventoryDto   {    }
+    public class FilmCategoryDto    {    }
     public class CategoryDto
     {
         public byte CategoryId { get; set; }

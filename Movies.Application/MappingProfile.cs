@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Movies.Application.Features.Actors.Command.CreateActorCommand;
+using Movies.Application.Features.Film.Query.GetActorsByFilmQuery;
 using Movies.Application.Features.Film.Query.GetFilmsListQuery;
 using Movies.Domain.Entities;
 using System;
@@ -18,6 +20,10 @@ namespace Movies.Application
             CreateMap<Film, FilmListVm>()
                 .ForMember(dest => dest.Language, opt => opt.MapFrom(o => o.Language.Name))
                 .ForMember(dest => dest.OriginalLanguage, opt => opt.MapFrom(o => o.OriginalLanguage != null ? o.OriginalLanguage.Name : null));
+
+            CreateMap<Actor, ActorListVm>();
+            CreateMap<CreateActorCommand, Actor>().ReverseMap();
+            CreateMap<ActorDto, Actor>().ReverseMap();
         }
     }
 }

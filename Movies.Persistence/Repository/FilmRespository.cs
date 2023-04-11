@@ -12,19 +12,15 @@ namespace Movies.Persistence.Repository
 {
     public class FilmRespository : BaseRepository<Film>, IFilmRepository
     {
-        public FilmRespository(SakilaContext dbContext) : base(dbContext)
-        {
-        }
+        public FilmRespository(SakilaContext dbContext) : base(dbContext) { }
 
         public async Task<IEnumerable<Film>> GetFilmsWithDetails(GetFilmsQueryParameters filmsQueryParameters)
         {
             var films = dbContext.Films.AsNoTracking();
-
             if(filmsQueryParameters.Title!= null)
             {
                 films = films.Where(f => f.Title.ToLower().Contains(filmsQueryParameters.Title.ToLower()));
             }
-
             return await films.OrderBy(f => f.Title)
                 .Skip(filmsQueryParameters.Size * (filmsQueryParameters.Page- 1))
                 .Take(filmsQueryParameters.Size)

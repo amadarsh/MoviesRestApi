@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Models;
 using Movies.Application;
 using Movies.Persistence;
 using System.Dynamic;
@@ -14,7 +15,33 @@ builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+    new OpenApiInfo
+    {
+        Title = "My API - V1",
+        Version = "v1",
+        Description = "A sample API to demo Swashbuckle",
+        TermsOfService = new Uri("http://tempuri.org/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Joe Developer",
+            Email = "joe.developer@tempuri.org"
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Apache 2.0",
+            Url = new Uri("http://www.apache.org/licenses/LICENSE-2.0.html")
+        }
+    }
+);
+
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -27,6 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,5 @@
-﻿using Movies.Application.Respository;
+﻿using Microsoft.EntityFrameworkCore;
+using Movies.Application.Respository;
 using Movies.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,16 @@ namespace Movies.Persistence.Repository
     {
         public ActorRepository(SakilaContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<IEnumerable<Actor>> GetActorsByFilmId(int filmId)
+        {
+            var actors = dbContext.FilmActors.AsNoTracking()
+                .Include(x => x.Actor)
+                .Where(fa => fa.FilmId == filmId)
+                .Select(fa => fa.Actor);
+
+            return await actors.ToListAsync();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Movies.Controllers
         {
             return Ok(new
             {
-                UTCTime = DateTime.UtcNow.ToShortDateString(),
+                UTCTime = DateTime.UtcNow.ToString(),
                 LocalTime = DateTime.Now.ToString()
             });
         }
